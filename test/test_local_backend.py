@@ -1,6 +1,7 @@
 import pytest
 
-from cookbook.backends.local_backend import LocalBackend, BackendException
+from cookbook.backends.local_backend import LocalBackend
+from cookbook.backends.backend import BackendException
 from cookbook.cookbook import Cookbook, CookbookException
 
 

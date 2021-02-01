@@ -1,7 +1,8 @@
 import os
 import uuid
-
 import yaml
+
+from cookbook.backends.backend import BackendException
 
 
 class LocalBackend:
@@ -38,9 +39,3 @@ class LocalBackend:
 
     def list(self):
         return os.listdir(self._target_dir)
-
-
-class BackendException(Exception):
-    def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
