@@ -1,0 +1,294 @@
+---
+recipes:
+  - title: lime-oncello
+    ingredients:
+      - 5 limes
+      - 3/4 cup everclear
+      - 3/8 cup 1:1 simple
+      - 3/8 cup water (1:2 or half simple)
+    steps:
+      - zest limes and place in everclear
+      - rest 4 to 5 days shaking daily
+      - combine with simple/water
+      - freeze
+
+  - title: limoncello
+    ingredients:
+      - 4 lemons
+      - 3/4 cup everclear
+      - 3/8 cup 1:1 simple
+      - 3/8 cup water (1:2 or half simple)
+    steps:
+      - zest limes and place in everclear
+      - rest 4 to 5 days shaking daily
+      - combine with simple/water
+      - freeze
+
+  - title: kentucky lime drop
+    ingredients:
+      - 1.5 oz basil hayden
+      - .75 oz limoncello
+      - 2 oz sour mix
+      - spearmint
+    steps:
+      - shake and serve with suguared rim
+
+  - title: Maple Bourbon Pork Loin
+    ingredients:
+      - 1/3 cup maple syrup
+      - 1 tbsp mustard
+      - 1 tbsp Bourbon
+      - 2 tsp cider vinegar
+      - 2 lb pork loin (not sure on this)
+      - salt, pepper, and cayenne pepper
+    steps:
+      - brine the pork loin for an hour or so before cooking
+      - combine maple syrup, mustard, bourbon, vinegar, and cayenne and put in sousvide bag
+      - add pork loin to bag and ensure coverage, let marinate
+      - cook loin at 135 F for 2.5 hours
+      - dump sous vide bag contents into cast iron
+      - cook port to 140 to 145, remove and cover
+      - reduce cooking liquid to thick syrup consistency
+
+  - title: tropical jolly rancher
+    ingredients:
+      - 1.5 oz irish whiskey
+      - 1.5 oz plantation XO
+      - 3/4 oz lemon juice
+      - 3/4 oz 2:1 syrup
+    steps:
+      - shake
+
+  - title: lemon daquiri
+    ingredients:
+      - 2 oz bumbu barbados rum
+      - 3/4 oz lemon juice
+      - 3/4 oz 2:1 simple
+    steps:
+      - shake
+
+  - title: lemon chicken marinade
+    ingredients:
+      - 1/4 cup olive olive
+      - 2 tsp italian seasoning
+      - 2 tsp garlic
+      - 1/8 cup lemon juice
+      - 1 lemon worth of zest
+      - 1 tsp salt
+      - 1 pound of chicken
+    steps:
+      - combine ingredints and marinate chicken
+      - sous vide for 70 minutes at 158, finish in cast iron
+
+  - title: X infused bourbon
+    ingredients:
+      - 6 lemons, wedged into 6 pieces
+      - 1 liter bourbon
+    steps:
+      - squeeze 1/4 of the wedges into jar
+      - add bourbon and rest of wedges to jar
+      - steep 3 days
+      - filter
+    extras:
+      - swap lemons for 10 limes, or 3 oranges
+
+  - title: Clarified Whiskey Sour (Works for lots of cocktails w/ acid)
+    ingredients:
+      - 2 oz bourbon (not too nice, this will de-identify it)
+      - 3/4 oz strained lemon juice
+      - 3/4 oz 2:1 simple syrup
+      - 1 oz milk
+    steps:
+      - stir all but the milk
+      - add cocktail to milk
+      - strain through coffee filter
+        - do not get impatience, if your batch is too big, consider breaking it into smaller batches
+        - or invent some crazy drip system
+      - when ready to serve, stir with ice
+    extras:
+      - scales linearly except for filtering
+
+  - title: Parmesan Cream Sauce
+    ingredients:
+      - 1/2 tbsp olive oil
+      - 1 cup (250ml) double cream (heavy cream)
+      - 1/4 cup parmesan freshly grated
+      - 2 clove garlic
+      - 1 pinch nutmeg
+      - 1 sprig thyme
+      - salt and pepper
+    steps:
+      - heat olive oil in pan, add garlic for 1 minute
+      - add all other ingredients except for the parmesan
+      - boil 30-60 seconds, then add parmesan
+      - stir until slightly thickened
+
+  - title: Mushroom Ravioli Filling
+    ingredients:
+      - 17.5 oz (500g) Chestnut mushrooms (crimini) , sliced (hard boiled egg slicer is your friend)
+      - 2 shallots finely chopped
+      - 2 clove garlic
+      - 1 sprig thyme
+      - 4 heaped tbsp ricotta
+      - 4 tbsp parmesan freshly grated
+      - salt and pepper to season
+      - port/whiskey should be tried at some point
+
+  - title: DEAR GOD MAKE SOMETHING WITH balsamic CHERRIES AND MOZZARELLA
+    extras:
+      - possible a chunky balsamic cherry sauce bruschetta?
+      - ricotta is a no go, doesn't do anything
+      - can you get away with some sort of thick cheese sauce pasta?
+      - 2:1 ratio mozzarella to cherries
+
+  - title: cheap boi mai tai
+    ingredients:
+      - 2/3 oz wray and nephew overproof
+      - 4/3 oz appleton estate
+      - 1/2 oz triple sec
+      - 3/4 oz lime juice
+      - 1/2 oz 1:1 simple syrup (fat)
+      - 3/2 cups cracked ice (fat measurement)
+    steps:
+      - add and shake
+    extras:
+      - consider bar spoon of cherry heering
+
+  - title: "cocktail #1"
+    ingredients:
+      - 2 oz appleton estate
+      - .5 oz lime juice
+      - .5 midori
+      - .5 peach schnapps (this might be the problem)
+    extas:
+      - peach underlying too strong, and aftertaste tastes like stale fruit...?
+      - oversweet on the front end, not very sharp or proofy
+
+  - title: Granola
+    ingredients:
+      - 4 cups oats
+      - 1.5 cups slivered almonds
+      - 1/2 cup coconut oil
+      - 1/2 cup vanilla maple syrup
+      - 1 tbsp vanilla
+    steps:
+      - comine dry ingredients and mix
+      - combine wet ingredients
+      - combine dry and wet and mix until coated
+      - place on baking sheet with wax paper/etc in oven at 325 for 26 minutes, stirring after 13 minutes
+      - look for edges starting to brown, only barely
+
+  - title: Refresco de Avena
+    ingredients:
+      - 1/3 cup demerara sugar
+      - 4 cups warm water
+      - 2 oz oats
+      - 1 lime worth of zest
+    steps:
+      - combine and steep for 1 hours
+
+  - title: Orgeat
+    ingredients:
+      - 200 g almonds/pecans
+      - 660 g hot water
+      - equal weights sugar to nut milk
+      - soy lecithin (.6 g was too much)
+      - 2 oz column still lightly aged rum (try less)
+      - 1/4 tsp rose water
+      - 1/4 tsp orange flower water
+    steps:
+      - put nuts and equal parts hot water into blender
+      - add water while blending till fine
+      - use nut milk bag to separate solids
+      - blend nut milk with equal parts sugar (add soy lecithin)
+      - add rest of things
+  
+  - title: ginger lime marinade
+    ingredients:
+      - 1/4 cup soy sauce
+      - 1/4 cup olive oil
+      - 2 tbsp lime juice
+      - 2 tbsp grated ginger
+      - 1/2 tsp pepper
+      - 1 clove garlic minced
+      - 1 lime zest
+
+  - title: scrabble
+    ingredients:
+      - box corn chex (12 oz)
+      - box what chex (14 oz)
+      - box rice chex (12 oz)
+      - box cheerios (8.9 oz)
+      - bag pretzels (15 oz)
+      - bag pecans (35 oz)
+      - 1 3/4 cups corn oil (maybe needs more, find better way to distribute)
+      - 4 tbsp worcestershire
+      - 1.5 tbsp garlic powder
+      - 3 tbsp sriracha
+      - 1/2 tbsp cayenne powder
+    steps:
+      - mix oil and dry in batches, place in brownie pans (4 or 5)
+      - bake 250F for 2 hours, stirring 15-20 minutes
+    comments:
+      - not hot enough, distribution very uneven
+      - rye chips were good last time
+  
+  - title: "Once Over #2"
+    ingredients:
+      - 1 1/2 ounce Aperol
+      - 3/4 ounce lime juice
+      - 3/4 ounce orgeat
+      - 1/2 ounce tequila
+      - 5 mint leaves
+      - 1/4 ounce mezcal, to float
+    steps:
+      - 1.5 cups ice per serving (at most)
+  
+  - title: ginger lime marinade
+    ingredients:
+      - 1/4 cup soy sauce
+      - 1/4 cup olive oil
+      - 2 tbsp lime juice
+      - 2 tablespoon grated ginger
+      - 1/2 tsp pepper
+      - 2 garlic cloves minced
+      - lime zest
+
+  - title: candied ginger
+    ingredients:
+      - 1 part ginger
+      - 1 part sugar (of boiled ginger)
+      - water (5 cups to every pound of ginger)
+    steps:
+      - boil thin slices of ginger until soft (35 min)
+      - reserve 1/4 cup of boiled water
+      - add ginger, equal parts sugar by weight, and water to pot
+      - reduce while constantly stirring until barely dry
+      - dump to cooling rack and nonstick surface
+
+  - title: irish coffee #1
+    ingredients:
+      - 1 oz espresso
+      - 1 oz irish whiskey (bourbon was too much)
+      - hot water to fill glass
+      - 1 oz simple
+      - whipped heavy cream (if you care)
+
+things_to_make:
+- combine lime-oncello and refresco de avena (probably a low sugar version)
+- Time to eat egg tortilla wrap (get recipe)
+- Time to eat chicken shwarma
+- Time to eat croissant breakfast
+- Pepper jelly
+- Cheese fried tortillas
+- Tapenade
+- Dried fruits
+- cherry liqueur
+- honey syrup
+- Dijon mustard bacon jam/spread for croissant sandwich
+- Coffee Granita
+- Premade old fashioned?
+- some irish coffee recipe
+- try different vinegars
+- clear ice
+- dumplings
