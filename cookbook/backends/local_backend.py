@@ -2,10 +2,10 @@ import os
 import uuid
 import yaml
 
-from cookbook.backends.backend import BackendException
+from cookbook.backends.backend import Backend, BackendException
 
 
-class LocalBackend:
+class LocalBackend(Backend):
 
     def __init__(self, target_dir="."):
         self._target_dir = target_dir
