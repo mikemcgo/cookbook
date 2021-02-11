@@ -1,3 +1,4 @@
+import boto3
 import click
 import yaml
 
@@ -43,12 +44,11 @@ def list(ctx):
 
 
 @cli.command()
-@click.argument("bulk_file", type=click.File("rb"))
 @click.pass_context
-def bulk_parse(ctx, bulk_file):
-    recipes = yaml.load(bulk_file).get('recipes')
-    for recipe in recipes:
-        print(recipe)
+def dynamo(ctx):
+    ddb = boto3.client('dynamodb', endpoint_url='http://localhost:8000', region_name='us-east-2')
+    response = ddb.list_tables()
+    print(response)
 
 
 if __name__ == '__main__':

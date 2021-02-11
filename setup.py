@@ -13,7 +13,9 @@ setup(
     ],
     extras_require={
         'dev': [
-            'pytest'
+            'pytest',
+            'pytest-terraform',
+            'pytest-docker'
         ]
     },
     entry_points='''

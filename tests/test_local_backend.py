@@ -37,5 +37,8 @@ def test_bad_obj(local):
 
 
 def test_first_write(local):
-    with pytest.raises(BackendException):
-        local.save({'id': '4a2c6f07-5286-4665-9875-7babd8719192', 'ingredients': ['asdf'], 'title': 'nah'})
+    local.save({'id': '4a2c6f07-5286-4665-9875-7babd8719192', 'ingredients': ['asdf'], 'title': 'nah'})
+
+
+def test_nonexist_delete(local):
+    local.delete('abcd')
