@@ -14,7 +14,6 @@ setup(
     extras_require={
         'dev': [
             'pytest',
-            'pytest-terraform',
             'pytest-docker'
         ]
     },
