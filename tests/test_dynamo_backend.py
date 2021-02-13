@@ -17,7 +17,12 @@ def http_service(docker_ip, docker_services):
 
 @pytest.fixture(scope='function')
 def cookbook(http_service):
-    ddb = boto3.Session(region_name='us-east-2').resource('dynamodb', endpoint_url=http_service)
+    fake_creds = {
+        'aws_access_key_id': 'a',
+        'aws_secret_access_key': 'b',
+        'aws_session_token': 'c'
+    }
+    ddb = boto3.Session(region_name='us-east-2', **fake_creds).resource('dynamodb', endpoint_url=http_service)
     table = ddb.create_table(
         AttributeDefinitions=[
             {
@@ -52,4 +57,3 @@ def test_happy_path(cookbook):
     assert len(ids) == 1
     cookbook.delete(recipe_id)
     assert len(cookbook.list()) == 0
-
