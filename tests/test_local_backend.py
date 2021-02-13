@@ -1,7 +1,7 @@
 import pytest
 
-from cookbook.backends.local_backend import LocalBackend
 from cookbook.backends.backend import BackendException
+from cookbook.backends.local_backend import LocalBackend
 from cookbook.cookbook import Cookbook, CookbookException
 
 
@@ -42,3 +42,8 @@ def test_first_write(local):
 
 def test_nonexist_delete(local):
     local.delete('abcd')
+
+
+def test_unwanted_fields(local):
+    with pytest.raises(CookbookException):
+        local.save({'ingredients': ['dirt'], 'title': 'garbage', 'badthings': 'i123'})

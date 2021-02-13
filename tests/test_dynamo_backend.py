@@ -41,7 +41,7 @@ def cookbook(http_service):
     table.wait_until_not_exists()
 
 
-def test_table(cookbook):
+def test_happy_path(cookbook):
     recipe = {'ingredients': ['dirt'], 'title': 'garbage'}
     recipe_id = cookbook.save(recipe)
     returned = cookbook.read(recipe_id)
@@ -50,7 +50,6 @@ def test_table(cookbook):
     ids = cookbook.list()
     assert recipe_id in ids
     assert len(ids) == 1
-
-
-def test_list_empty(cookbook):
+    cookbook.delete(recipe_id)
     assert len(cookbook.list()) == 0
+
