@@ -1,5 +1,5 @@
 import os
-import uuid
+
 import yaml
 
 from cookbook.backends.backend import Backend, BackendException
@@ -8,6 +8,7 @@ from cookbook.backends.backend import Backend, BackendException
 class LocalBackend(Backend):
 
     def __init__(self, target_dir="."):
+        super().__init__()
         self._target_dir = target_dir
 
     def read(self, recipe_id):
@@ -21,20 +22,16 @@ class LocalBackend(Backend):
     def save(self, recipe):
         recipe_id = recipe.get('id')
 
-        # Do not allow users to set the ID
-        if not recipe_id:
-            recipe_id = str(uuid.uuid4())
-            recipe.update(id=recipe_id)
-        elif recipe_id not in self.list():
-            raise BackendException('Used defined IDs are not allowed, recipe does not yet exist')
-
         with open(file=os.path.join(self._target_dir, recipe_id), mode='w') as f:
             yaml.dump(recipe, f)
 
         return recipe_id
 
     def delete(self, recipe_id):
-        os.remove(os.path.join(self._target_dir, recipe_id))
+        try:
+            os.remove(os.path.join(self._target_dir, recipe_id))
+        except FileNotFoundError:
+            pass
         return None
 
     def list(self):

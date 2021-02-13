@@ -13,7 +13,8 @@ setup(
     ],
     extras_require={
         'dev': [
-            'pytest'
+            'pytest',
+            'pytest-docker'
         ]
     },
     entry_points='''
