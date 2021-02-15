@@ -27,7 +27,7 @@ def test_happy_path(local):
 
 
 def test_empty_read(local):
-    with pytest.raises(BackendException):
+    with pytest.raises(CookbookException):
         local.read('1234')
 
 

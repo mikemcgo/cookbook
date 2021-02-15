@@ -18,7 +18,12 @@ class Cookbook:
 
     # Validate returned fields, add empty fields
     def read(self, recipe_id):
-        return self._backend.read(recipe_id)
+        try:
+            recipe = self._backend.read(recipe_id)
+        except BaseException as e:
+            raise CookbookException(e.message)
+
+        return recipe
 
     def delete(self, recipe_id):
         return self._backend.delete(recipe_id)
@@ -27,7 +32,8 @@ class Cookbook:
         return self._backend.list()
 
 
+# In the case that the errors is not a ValidationError, but a single error message, make them look the same
 class CookbookException(Exception):
     def __init__(self, messages):
-        self.messages = messages
+        self.messages = messages if not isinstance(messages, str) else {'request': [messages]}
         super().__init__(self.messages)

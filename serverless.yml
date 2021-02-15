@@ -1,0 +1,124 @@
+service: cookbook
+
+frameworkVersion: ">=2.23.0"
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  include:
+    - cookbook/**
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-east-2
+  kmsKeyArn: !GetAtt AppKMS.Arn
+  deploymentBucket:
+    blockPublicAccess: true
+
+  environment:
+    DYNAMODB_TABLE: ${self:service}-recipes-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  post:
+    handler: cookbook/interfaces/lamdba.post
+    events:
+      - http:
+          path: cookbook
+          method: post
+          cors: true
+
+  list:
+    handler: cookbook/interfaces/lamdba.list
+    events:
+      - http:
+          path: cookbook
+          method: get
+          cors: true
+
+  get:
+    handler: cookbook/interfaces/lamdba.get
+    events:
+      - http:
+          path: cookbook/{id}
+          method: get
+          cors: true
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+
+  put:
+    handler: cookbook/interfaces/lamdba.put
+    events:
+      - http:
+          path: cookbook/{id}
+          method: put
+          cors: true
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+  delete:
+    handler: cookbook/interfaces/lamdba.delete
+    events:
+      - http:
+          path: cookbook/{id}
+          method: delete
+          cors: true
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+
+resources:
+  Resources:
+    CookbookDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        SSESpecification:
+          KMSMasterKeyId: !Ref AppKMS
+          SSEEnabled: true
+          SSEType: KMS
+    AppKMS:
+      Type: 'AWS::KMS::Key'
+      DeletionPolicy: Retain
+      Properties:
+        Enabled: true
+        EnableKeyRotation: true
+        KeyPolicy:
+          Version: '2012-10-17'
+          Id: key-default-1
+          Statement:
+            - Sid: Enable IAM User Permissions
+              Effect: Allow
+              Principal:
+                AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+              Action: kms:*
+              Resource: '*'

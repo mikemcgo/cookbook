@@ -12,6 +12,7 @@ class DynamoBackend(Backend):
             raise BackendException(f'boto3 dyanmodb table resource expected, instead received {type(table)}')
         self._table = table
 
+    # Raise Backend Exception if Not Found
     def read(self, recipe_id):
         resp = self._table.get_item(
             Key={
