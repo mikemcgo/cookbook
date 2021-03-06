@@ -7,7 +7,7 @@ from cookbook.backends.dynamo import DynamoBackend
 from cookbook.cookbook import Cookbook, CookbookException
 
 ddb = boto3.resource('dynamodb')
-cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["TABLE_NAME"])))
+cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["DYNAMODB_TABLE"])))
 
 
 # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html

@@ -6,8 +6,12 @@ plugins:
   - serverless-python-requirements
 
 package:
+  individually: false
   include:
-    - cookbook/**
+    - "!./**"
+    - "./cookbook/**"
+  exclude:
+    - "**"
 
 provider:
   name: aws
