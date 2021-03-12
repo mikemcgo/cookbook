@@ -1,8 +1,8 @@
-import boto3
 import pytest
 
 from cookbook.backends.dynamo import DynamoBackend
 from cookbook.cookbook import Cookbook
+from cookbook.util import get_test_table
 
 
 # Starts services from tests/docker-compose.yml
@@ -17,29 +17,7 @@ def http_service(docker_ip, docker_services):
 
 @pytest.fixture(scope='function')
 def cookbook(http_service):
-    fake_creds = {
-        'aws_access_key_id': 'a',
-        'aws_secret_access_key': 'b',
-        'aws_session_token': 'c'
-    }
-    ddb = boto3.Session(region_name='us-east-2', **fake_creds).resource('dynamodb', endpoint_url=http_service)
-    table = ddb.create_table(
-        AttributeDefinitions=[
-            {
-                'AttributeName': 'id',
-                'AttributeType': 'S'
-            },
-        ],
-        TableName='cookbook',
-        KeySchema=[
-            {
-                'AttributeName': 'id',
-                'KeyType': 'HASH'
-            },
-        ],
-        BillingMode='PAY_PER_REQUEST'
-    )
-    table.wait_until_exists()
+    table = get_test_table('us-east-2', http_service, cookbook)
     yield Cookbook(DynamoBackend(table))
 
     table.delete()

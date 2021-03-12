@@ -4,6 +4,7 @@ frameworkVersion: ">=2.23.0"
 
 plugins:
   - serverless-python-requirements
+  - serverless-offline
 
 package:
   individually: false
@@ -20,7 +21,8 @@ provider:
   kmsKeyArn: !GetAtt AppKMS.Arn
   deploymentBucket:
     blockPublicAccess: true
-
+  apiGateway:
+    shouldStartNameWithService: true
   environment:
     DYNAMODB_TABLE: ${self:service}-recipes-${opt:stage, self:provider.stage}
   iamRoleStatements:

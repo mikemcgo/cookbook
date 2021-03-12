@@ -5,9 +5,16 @@ import boto3
 
 from cookbook.backends.dynamo import DynamoBackend
 from cookbook.cookbook import Cookbook, CookbookException
+from cookbook.util import get_test_table
 
 ddb = boto3.resource('dynamodb')
-cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["DYNAMODB_TABLE"])))
+
+# TODO: work on workflow for getting dynamo table up and available to the exec environment (bash hell?)
+if 'IS_OFFLINE' in os.environ:
+    table = get_test_table('us-east-2', 'http://127.0.0.1:8000', os.environ["DYNAMODB_TABLE"])
+    cookbook = Cookbook(DynamoBackend(table))
+else:
+    cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["DYNAMODB_TABLE"])))
 
 
 # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html
