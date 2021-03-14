@@ -14,7 +14,9 @@ setup(
     extras_require={
         'dev': [
             'pytest',
-            'pytest-docker'
+            'pytest-docker',
+            'pytest-shell',
+            'requests'
         ]
     },
     entry_points='''

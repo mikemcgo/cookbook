@@ -18,6 +18,8 @@ class DynamoBackend(Backend):
             Key={
                 'id': recipe_id
             })
+        if 'Item' not in resp:
+            raise BackendException(f'No item found with id {recipe_id}')
         return resp.get('Item')
 
     # TODO: this might be over-simplified
@@ -35,7 +37,7 @@ class DynamoBackend(Backend):
             },
             ReturnValues='NONE'
         )
-        return None
+        return recipe_id
 
     # This does not scale
     def list(self):

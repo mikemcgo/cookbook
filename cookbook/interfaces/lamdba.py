@@ -7,29 +7,53 @@ from cookbook.backends.dynamo import DynamoBackend
 from cookbook.cookbook import Cookbook, CookbookException
 from cookbook.util import get_test_table
 
-ddb = boto3.resource('dynamodb')
-
-# TODO: work on workflow for getting dynamo table up and available to the exec environment (bash hell?)
-if 'IS_OFFLINE' in os.environ:
-    table = get_test_table('us-east-2', 'http://127.0.0.1:8000', os.environ["DYNAMODB_TABLE"])
+# Use this as our key that we're running locally
+if 'AWS_EXECUTION_ENV' not in os.environ:
+    table = get_test_table('us-east-2', 'http://127.0.0.1:8000', 'cookbook-recipes-dev')
     cookbook = Cookbook(DynamoBackend(table))
 else:
+    ddb = boto3.resource('dynamodb')
     cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["DYNAMODB_TABLE"])))
 
 
-# https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html
-
 # https://www.restapitutorial.com/lessons/httpmethods.html
-# https://learn.hashicorp.com/tutorials/terraform/lambda-api-gateway
 # /recipes/ (get, post)
 # /recipes/${id} (get, put, delete)
 
+def get_body(event):
+    body = event.get('body')
+    return json.loads(event.get('body')) if isinstance(body, str) else {}
+
+
+# Collect Body & ID
+def request_runner(function, event, context):
+    body = get_body(event)
+    recipe_id = event.get('requestPath').split('/')[-1]
+
+    try:
+        fxn = getattr(cookbook, function)
+        # Responses from functions are either ids, or recipe bodies
+        # Inputs are either body or id
+        resp = fxn(body | recipe_id)
+    except CookbookException as e:
+        body = {
+            'errors': e.messages
+        }
+
+    response = {
+        # This can be param'd probably based on error content?
+        "statusCode": 200 if recipe_id else 400,
+        "body": json.dumps(body)
+    }
+
+    return response
+
 def post(event, context):
-    body = json.loads(event.body)
+    body = get_body(event)
     try:
         recipe_id = cookbook.save(body)
         body = {
-            'recipe_id': recipe_id
+            'id': recipe_id
         }
     except CookbookException as e:
         body = {
@@ -38,7 +62,7 @@ def post(event, context):
 
     response = {
         "statusCode": 200 if recipe_id else 400,
-        "body": body
+        "body": json.dumps(body)
     }
 
     return response
@@ -51,7 +75,7 @@ def list(event, context):
 
 
 def get(event, context):
-    recipe_id = json.loads(event.body).get('id')
+    recipe_id = event.get('requestPath').split('/')[-1]
     try:
         body = cookbook.read(recipe_id)
     except CookbookException as e:
@@ -60,7 +84,7 @@ def get(event, context):
         }
     response = {
         "statusCode": 200 if 'errors' not in body else 404,
-        "body": body
+        "body": json.dumps(body)
     }
 
     return response
@@ -68,32 +92,39 @@ def get(event, context):
 
 # hoooooo these error codes are not gonna be good friend
 def put(event, context):
-    recipe_id = json.loads(event.body).get('id')
+    body = get_body(event)
+    body.update(id=event.get('requestPath').split('/')[-1])
     try:
-        body = cookbook.put(recipe_id)
+        recipe_id = cookbook.save(body)
+        body = {
+            'id': recipe_id
+        }
     except CookbookException as e:
         body = {
             'errors': e.messages
         }
     response = {
         "statusCode": 200 if 'errors' not in body else 404,
-        "body": body
+        "body": json.dumps(body)
     }
 
     return response
 
 
 def delete(event, context):
-    recipe_id = json.loads(event.body).get('id')
+    recipe_id = event.get('requestPath').split('/')[-1]
     try:
-        body = cookbook.delete(recipe_id)
+        recipe_id = cookbook.delete(recipe_id)
+        body = {
+            'id': recipe_id
+        }
     except CookbookException as e:
         body = {
             'errors': e.messages
         }
     response = {
         "statusCode": 200 if 'errors' not in body else 404,
-        "body": body
+        "body": json.dumps(body)
     }
 
     return response
