@@ -64,7 +64,6 @@ functions:
           path: cookbook/{id}
           method: get
           cors: true
-          integration: lambda
           request:
             parameters:
               paths:
@@ -77,11 +76,11 @@ functions:
           path: cookbook/{id}
           method: put
           cors: true
-          integration: lambda
           request:
             parameters:
               paths:
                 id: true
+
   delete:
     handler: cookbook/interfaces/lamdba.delete
     events:
@@ -89,7 +88,6 @@ functions:
           path: cookbook/{id}
           method: delete
           cors: true
-          integration: lambda
           request:
             parameters:
               paths:
@@ -108,7 +106,9 @@ resources:
           - AttributeName: id
             KeyType: HASH
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
-        BillingMode: PAY_PER_REQUEST
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 #        SSESpecification:
 #          KMSMasterKeyId: !Ref AppKMS
 #          SSEEnabled: true

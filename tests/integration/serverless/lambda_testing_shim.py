@@ -25,7 +25,9 @@ class Mocker:
         path = url[len(self.url):]
         event = {
             'body': json.dumps(kwargs.get('json', {})),
-            'requestPath': path
+            'requestContext': {
+                'path': path
+            }
         }
 
         # If path is /dev/cookbook, then want to list

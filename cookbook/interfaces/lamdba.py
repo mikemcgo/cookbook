@@ -13,12 +13,15 @@ if 'AWS_EXECUTION_ENV' not in os.environ:
     cookbook = Cookbook(DynamoBackend(table))
 else:
     ddb = boto3.resource('dynamodb')
-    cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ["DYNAMODB_TABLE"])))
+    cookbook = Cookbook(DynamoBackend(ddb.Table(os.environ['DYNAMODB_TABLE'])))
 
 
 # https://www.restapitutorial.com/lessons/httpmethods.html
 # /recipes/ (get, post)
 # /recipes/${id} (get, put, delete)
+
+# Using the lambda-proxy integration mode
+# https://www.serverless.com/framework/docs/providers/aws/events/apigateway#example-lambda-proxy-event-default
 
 def get_body(event):
     body = event.get('body')
@@ -42,11 +45,15 @@ def request_runner(function, event, context):
 
     response = {
         # This can be param'd probably based on error content?
-        "statusCode": 200 if recipe_id else 400,
-        "body": json.dumps(body)
+        'statusCode': 200 if recipe_id else 400,
+        'body': json.dumps(body),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
     }
 
     return response
+
 
 def post(event, context):
     body = get_body(event)
@@ -61,8 +68,11 @@ def post(event, context):
         }
 
     response = {
-        "statusCode": 200 if recipe_id else 400,
-        "body": json.dumps(body)
+        'statusCode': 201 if recipe_id else 400,
+        'body': json.dumps(body),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
     }
 
     return response
@@ -70,12 +80,17 @@ def post(event, context):
 
 # TODO: Implement Pagination b/c it annoys you when its not there
 def list(event, context):
-    return {'statusCode': 201,
-            'body': json.dumps(cookbook.list())}
+    return {
+        'statusCode': 200,
+        'body': json.dumps(cookbook.list()),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
+    }
 
 
 def get(event, context):
-    recipe_id = event.get('requestPath').split('/')[-1]
+    recipe_id = event.get('requestContext').get('path').split('/')[-1]
     try:
         body = cookbook.read(recipe_id)
     except CookbookException as e:
@@ -83,8 +98,11 @@ def get(event, context):
             'errors': e.messages
         }
     response = {
-        "statusCode": 200 if 'errors' not in body else 404,
-        "body": json.dumps(body)
+        'statusCode': 200 if 'errors' not in body else 404,
+        'body': json.dumps(body),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
     }
 
     return response
@@ -93,7 +111,7 @@ def get(event, context):
 # hoooooo these error codes are not gonna be good friend
 def put(event, context):
     body = get_body(event)
-    body.update(id=event.get('requestPath').split('/')[-1])
+    body.update(id=event.get('requestContext').get('path').split('/')[-1])
     try:
         recipe_id = cookbook.save(body)
         body = {
@@ -104,15 +122,18 @@ def put(event, context):
             'errors': e.messages
         }
     response = {
-        "statusCode": 200 if 'errors' not in body else 404,
-        "body": json.dumps(body)
+        'statusCode': 201 if 'errors' not in body else 400,
+        'body': json.dumps(body),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
     }
 
     return response
 
 
 def delete(event, context):
-    recipe_id = event.get('requestPath').split('/')[-1]
+    recipe_id = event.get('requestContext').get('path').split('/')[-1]
     try:
         recipe_id = cookbook.delete(recipe_id)
         body = {
@@ -123,8 +144,11 @@ def delete(event, context):
             'errors': e.messages
         }
     response = {
-        "statusCode": 200 if 'errors' not in body else 404,
-        "body": json.dumps(body)
+        'statusCode': 200 if 'errors' not in body else 400,
+        'body': json.dumps(body),
+        'headers': {
+            'Content-Type': 'application/json'
+        }
     }
 
     return response

@@ -3,7 +3,7 @@ import requests
 import uuid
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def driver(request, dynamo_service):
     # If Mocker is imported in the global scope, it eventually tries to make a dynamodb table before dynamo starts
     # This is gross but it seems to work
@@ -17,10 +17,10 @@ def driver(request, dynamo_service):
 
     yield session, target_installation
 
-    if 'nil' not in target_installation:
-        recipes = driver[0].get(driver[1])
-        for recipe_id in recipes:
-            driver[0].delete(driver[1] + '/' + recipe_id)
+    # if 'nil' not in target_installation:
+    #     recipes = session.get(target_installation)
+    #     for recipe_id in recipes:
+    #         session.delete(target_installation + '/' + str(recipe_id))
 
 
 def test_empty_list(driver):
